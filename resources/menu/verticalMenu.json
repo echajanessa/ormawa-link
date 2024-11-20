@@ -1,0 +1,388 @@
+{
+  "menu": [
+    {
+      "url": "/dashboard",
+      "name": "Dashboard",
+      "icon": "menu-icon tf-icons bx bx-home-smile",
+      "slug": "dashboard",
+      "roles": [
+        "RL002",
+        "RL004",
+        "RL005",
+        "RL006",
+        "RL007",
+        "RL008",
+        "RL009"
+      ]
+    },
+    {
+      "menuHeader": "ADMINISTRASI DOKUMEN",
+      "roles": [
+        "RL002",
+        "RL004",
+        "RL005",
+        "RL006",
+        "RL007",
+        "RL008",
+        "RL009"
+      ]
+    },
+    {
+      "name": "Pengajuan",
+      "icon": "menu-icon tf-icons bx bx-folder-plus",
+      "slug": "submission",
+      "roles": [
+        "RL006",
+        "RL007",
+        "RL008",
+        "RL009"
+      ],
+      "submenu": [
+        {
+          "url": "/pengajuan-proposal/create",
+          "name": "Proposal Kegiatan",
+          "slug": "submission-proposal.create",
+          "roles": [
+            "RL006",
+            "RL007",
+            "RL008",
+            "RL009"
+          ]
+        },
+        {
+          "url": "/pengajuan-lpj",
+          "name": "LPJ",
+          "slug": "submission-lpj",
+          "roles": [
+            "RL006",
+            "RL007",
+            "RL008",
+            "RL009"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Pemantauan Proses",
+      "icon": "menu-icon tf-icons bx bx-collection",
+      "slug": "document-tracking.index",
+      "url": "/pemantauan-proses",
+      "roles": [
+        "RL002",
+        "RL004",
+        "RL005",
+        "RL006",
+        "RL007",
+        "RL008",
+        "RL009"
+      ]
+    },
+    {
+      "name": "Riwayat Aktivitas",
+      "icon": "menu-icon tf-icons bx bx-history",
+      "slug": "document-history",
+      "url": "/riwayat-dokumen",
+      "roles": [
+        "RL002",
+        "RL004",
+        "RL005",
+        "RL006",
+        "RL007",
+        "RL008",
+        "RL009"
+      ]
+    },
+    {
+      "name": "Persetujuan Dokumen",
+      "icon": "menu-icon tf-icons bx bx-message-square-check",
+      "slug": "document-approval.index",
+      "url": "/persetujuan-dokumen",
+      "roles": [
+        "RL002",
+        "RL004",
+        "RL005",
+        "RL006",
+        "RL007"
+      ]
+    },
+    {
+      "menuHeader": "REGULASI",
+      "roles": [
+        "RL001",
+        "RL002"
+      ]
+    },
+    {
+      "name": "Manajemen Regulasi",
+      "icon": "menu-icon tf-icons bx bx-cog",
+      "slug": "regulation-management.index",
+      "url": "/manajemen-regulasi",
+      "roles": [
+        "RL001",
+        "RL002"
+      ]
+    },
+    {
+      "menuHeader": "AKUN",
+      "roles": [
+        "RL001",
+        "RL002",
+        "RL003",
+        "RL004",
+        "RL005",
+        "RL006",
+        "RL007",
+        "RL008",
+        "RL009"
+      ]
+    },
+    {
+      "name": "Manajemen Akun",
+      "icon": "menu-icon tf-icons bx bx bx-dock-top",
+      "slug": "user-management.index",
+      "url": "/manajemen-akun",
+      "roles": [
+        "RL001",
+        "RL002",
+        "RL003",
+        "RL004",
+        "RL005"
+      ]
+    },
+    {
+      "name": "Profile",
+      "icon": "menu-icon tf-icons bx bx-user",
+      "slug": "profile.edit",
+      "url": "/profile/edit",
+      "roles": [
+        "RL001",
+        "RL002",
+        "RL003",
+        "RL004",
+        "RL005",
+        "RL006",
+        "RL007",
+        "RL008",
+        "RL009"
+      ]
+    },
+    {
+      "name": "Ubah Kata Sandi",
+      "icon": "menu-icon tf-icons bx bx-lock-open-alt",
+      "slug": "change-password.index",
+      "url": "/ubah-sandi",
+      "roles": [
+        "RL001",
+        "RL002",
+        "RL003",
+        "RL004",
+        "RL005",
+        "RL006",
+        "RL007",
+        "RL008",
+        "RL009"
+      ]
+    },
+    {
+      "name": "Abaikan",
+      "icon": "menu-icon tf-icons bx bx bx-dock-top",
+      "slug": "pages-account-settings",
+      "submenu": [
+        {
+          "url": "pages/account-settings-account",
+          "name": "Account",
+          "slug": "pages-account-settings-account"
+        },
+        {
+          "url": "pages/account-settings-notifications",
+          "name": "Notifications",
+          "slug": "pages-account-settings-notifications"
+        },
+        {
+          "url": "pages/account-settings-connections",
+          "name": "Connections",
+          "slug": "pages-account-settings-connections"
+        },
+        {
+          "url": "ui/accordion",
+          "name": "Accordion",
+          "slug": "ui-accordion"
+        },
+        {
+          "url": "ui/alerts",
+          "name": "Alerts",
+          "slug": "ui-alerts"
+        },
+        {
+          "url": "ui/badges",
+          "name": "Badges",
+          "slug": "ui-badges"
+        },
+        {
+          "url": "ui/buttons",
+          "name": "Buttons",
+          "slug": "ui-buttons"
+        },
+        {
+          "url": "ui/carousel",
+          "name": "Carousel",
+          "slug": "ui-carousel"
+        },
+        {
+          "url": "ui/collapse",
+          "name": "Collapse",
+          "slug": "ui-collapse"
+        },
+        {
+          "url": "ui/dropdowns",
+          "name": "Dropdowns",
+          "slug": "ui-dropdowns"
+        },
+        {
+          "url": "ui/footer",
+          "name": "Footer",
+          "slug": "ui-footer"
+        },
+        {
+          "url": "ui/list-groups",
+          "name": "List Groups",
+          "slug": "ui-list-groups"
+        },
+        {
+          "url": "ui/modals",
+          "name": "Modals",
+          "slug": "ui-modals",
+          "roles": [
+            "RL001",
+            "RL002",
+            "RL003",
+            "RL004",
+            "RL005",
+            "RL006",
+            "RL007",
+            "RL008",
+            "RL009"
+          ]
+        },
+        {
+          "url": "ui/navbar",
+          "name": "Navbar",
+          "slug": "ui-navbar"
+        },
+        {
+          "url": "ui/offcanvas",
+          "name": "Offcanvas",
+          "slug": "ui-offcanvas"
+        },
+        {
+          "url": "ui/pagination-breadcrumbs",
+          "name": "Pagination & Breadcrumbs",
+          "slug": "ui-pagination-breadcrumbs"
+        },
+        {
+          "url": "ui/progress",
+          "name": "Progress",
+          "slug": "ui-progress"
+        },
+        {
+          "url": "ui/spinners",
+          "name": "Spinners",
+          "slug": "ui-spinners"
+        },
+        {
+          "url": "ui/tabs-pills",
+          "name": "Tabs & Pills",
+          "slug": "ui-tabs-pills"
+        },
+        {
+          "url": "ui/toasts",
+          "name": "Toasts",
+          "slug": "ui-toasts"
+        },
+        {
+          "url": "ui/tooltips-popovers",
+          "name": "Tooltips & Popovers",
+          "slug": "ui-tooltips-popovers"
+        },
+        {
+          "url": "ui/scrollbar",
+          "name": "Tooltips & Popovers",
+          "slug": "extended-ui-perfect-scrollbar"
+        },
+        {
+          "url": "ui/text-divider",
+          "name": "Text Divider",
+          "slug": "extended-ui-text-divider"
+        },
+        {
+          "url": "ui/typography",
+          "name": "Typography",
+          "slug": "ui-typography"
+        },
+        {
+          "url": "forms/basic-inputs",
+          "name": "Basic Inputs",
+          "slug": "forms-basic-inputs"
+        },
+        {
+          "url": "forms/input-groups",
+          "name": "Input groups",
+          "slug": "forms-input-groups"
+        },
+        {
+          "url": "form/layouts-vertical",
+          "name": "Vertical Form",
+          "slug": "form-layouts-vertical"
+        },
+        {
+          "url": "form/layouts-horizontal",
+          "name": "Horizontal Form",
+          "slug": "form-layouts-horizontal"
+        },
+        {
+          "url": "tables/basic",
+          "name": "Tables",
+          "slug": "tables-basic"
+        },
+        {
+          "url": "pages/misc-error",
+          "name": "Error",
+          "slug": "pages-misc-error",
+          "target": "_blank"
+        },
+        {
+          "url": "layouts/without-menu",
+          "name": "Without menu",
+          "slug": "layouts-without-menu"
+        },
+        {
+          "url": "layouts/without-navbar",
+          "name": "Without navbar",
+          "slug": "layouts-without-navbar"
+        },
+        {
+          "url": "layouts/container",
+          "name": "Container",
+          "slug": "layouts-container"
+        },
+        {
+          "url": "layouts/fluid",
+          "name": "Fluid",
+          "slug": "layouts-fluid"
+        },
+        {
+          "url": "layouts/blank",
+          "name": "Blank",
+          "slug": "layouts-blank",
+          "target": "_blank"
+        },
+        {
+          "url": "pages/misc-under-maintenance",
+          "name": "Under Maintenance",
+          "slug": "pages-misc-under-maintenance",
+          "target": "_blank"
+        }
+      ]
+    }
+  ]
+}

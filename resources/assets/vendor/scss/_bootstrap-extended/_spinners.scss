@@ -1,0 +1,32 @@
+// Spinners
+//
+
+//Large size
+.spinner-border-lg {
+  width: $spinner-width-lg;
+  height: $spinner-height-lg;
+  border-width: $spinner-border-width-lg;
+}
+
+.spinner-grow-lg {
+  width: $spinner-width-lg;
+  height: $spinner-height-lg;
+  border-width: $spinner-border-width-lg;
+}
+
+.loadingData {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  z-index: 15000;
+  background-color: aqua;
+  opacity: 0.5;
+}
+
+@include keyframes('spinner-border-rtl') {
+  to {
+    transform: rotate(-360deg);
+  }
+}
