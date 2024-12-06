@@ -34,7 +34,7 @@ class ProfileController extends Controller
 
         $request->validate([
             'name' => 'required|string|max:255',
-            'phone_number' => 'nullable|integer',
+            'phone_number' => 'nullable|numeric|digits_between:10,14',
         ]);
 
         $userId = Auth::id();

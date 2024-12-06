@@ -34,18 +34,18 @@
                                 @php
                                     $badgeClass = '';
                                     switch ($document->doc_status) {
-                                        case 'Review BEM':
-                                        case 'Review DPM':
-                                        case 'Review Binma':
-                                        case 'Review Dekan':
-                                        case 'Review Lemawa':
+                                        case 'Ditinjau BEM':
+                                        case 'Ditinjau DPM':
+                                        case 'Ditinjau Binma':
+                                        case 'Ditinjau Dekan':
+                                        case 'Ditinjau Lemawa':
                                             $badgeClass = 'bg-label-info';
                                             break;
-                                        case 'Revise BEM':
-                                        case 'Revise DPM':
-                                        case 'Revise Binma':
-                                        case 'Revise Dekan':
-                                        case 'Revise Lemawa':
+                                        case 'Revisi BEM':
+                                        case 'Revisi DPM':
+                                        case 'Revisi Binma':
+                                        case 'Revisi Dekan':
+                                        case 'Revisi Lemawa':
                                             $badgeClass = 'bg-label-danger';
                                             break;
                                         case 'Reject BEM':

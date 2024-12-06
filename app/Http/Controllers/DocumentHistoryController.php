@@ -18,7 +18,7 @@ class DocumentHistoryController extends Controller
     {
         $userId = Auth::id();
 
-        // Ambil dokumen yang sudah "Done"
+        // Ambil dokumen yang sudah "Selesaiphp"
         $documents = DB::table('document_submissions')
             ->join('document_types', 'document_submissions.doc_type_id', '=', 'document_types.doc_type_id')
             ->join('document_status', 'document_submissions.status_id', '=', 'document_status.status_id')

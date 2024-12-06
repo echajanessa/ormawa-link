@@ -62,7 +62,7 @@
                                                 <a class="dropdown-item" type="button"
                                                     onclick="deleteSwal('{{ $user->id }}')">
                                                     <i class="bx bx-trash me-1"></i>
-                                                    Delete
+                                                    Hapus
                                                 </a>
                                             </form>
                                         </div>
@@ -129,9 +129,9 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-outline-secondary me-2" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary me-2" onclick="successEditSwal()">Save
-                            changes</button>
+                        <button type="button" class="btn btn-outline-secondary me-2" data-bs-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn btn-primary me-2" onclick="successEditSwal()">Simpan
+                            Perubahan</button>
                     </div>
                 </div>
             </div>
@@ -160,9 +160,10 @@
                 text: "Apakah Anda yakin akan menghapus akun ini?",
                 icon: "warning",
                 showCancelButton: true,
-                confirmButtonColor: "#5DC264",
-                cancelButtonColor: "#F47D20",
-                confirmButtonText: "Hapus"
+                confirmButtonColor: "#B31010",
+                confirmButtonText: "Ya, hapus",
+                cancelButtonText: "Batal",
+                reverseButtons: true
             }).then((result) => {
                 if (result.isConfirmed) {
                     // Submit the form if user confirms deletion
@@ -338,8 +339,8 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-outline-secondary me-2"
-                            data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save changes</button>
+                            data-bs-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn btn-primary">Simpan</button>
                     </div>
                 </div>
             </div>

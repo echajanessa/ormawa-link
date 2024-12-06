@@ -114,7 +114,7 @@
                             <div class="form-group mb-6">
                                 <label for="decision" class="mb-2">Keputusan</label>
                                 <select class="form-control" name="decision" id="decision" required>
-                                    <option value="">Pilih Keputusan</option>
+                                    <option value="">--Pilih Keputusan--</option>
                                     <option value="approve">Setujui</option>
                                     <option value="reject">Tolak</option>
                                 </select>
@@ -130,7 +130,7 @@
                                     id="approval_document" required>
                             </div>
 
-                            <button type="submit" id="submitButton" class="btn btn-success">Submit</button>
+                            <button type="submit" id="submitButton" class="btn btn-primary">Submit</button>
                         </form>
 
                     </div>
@@ -156,13 +156,14 @@
             approvalForm.addEventListener("submit", function(event) {
                 event.preventDefault(); // Prevent form submission until after Swal confirmation
 
-                swalWithBootstrapButtons.fire({
+                swal.fire({
                     title: "Konfirmasi Tindakan",
                     text: "Apakah Anda yakin dengan keputusan Anda?",
                     icon: "warning",
                     showCancelButton: true,
                     confirmButtonText: "Ya, submit",
                     cancelButtonText: "Tidak, batalkan",
+                    confirmButtonColor: "#B31010",
                     reverseButtons: true
                 }).then((result) => {
                     if (result.isConfirmed) {
@@ -182,10 +183,11 @@
                             }, 1000);
                         });
                     } else if (result.dismiss === Swal.DismissReason.cancel) {
-                        swalWithBootstrapButtons.fire({
+                        swal.fire({
                             title: "Batal",
                             text: "Tindakan Anda dibatalkan",
-                            icon: "error"
+                            icon: "error",
+                            confirmButtonColor: "#B31010"
                         });
                     }
                 });

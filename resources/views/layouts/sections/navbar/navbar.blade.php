@@ -5,6 +5,11 @@
     $navbarDetached = $navbarDetached ?? '';
 @endphp
 
+<style>
+    .swal2-container {
+        z-index: 10000 !important;
+    }
+</style>
 
 <style>
     .user-icon {
@@ -87,24 +92,13 @@
                     </a>
                 </li>
                 <li>
-                    <a class="dropdown-item" href="javascript:void(0);">
-                        <span class="d-flex align-items-center align-middle">
-                            <i class="flex-shrink-0 bx bx-credit-card bx-md me-3"></i>
-                            <span class="flex-grow-1 align-middle">Persetujuan</span>
-                            <span class="flex-shrink-0 badge rounded-pill bg-danger">0</span>
-                        </span>
-                    </a>
-                </li>
-                <li>
                     <div class="dropdown-divider my-1"></div>
                 </li>
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                     @csrf
                 </form>
                 <li>
-                    <a class="dropdown-item" href="#"
-                        onclick="event.preventDefault();
-                                 document.getElementById('logout-form').submit();">
+                    <a class="dropdown-item" href="#" id="logout-btn">
                         <i class="bx bx-power-off bx-md me-3"></i><span>Logout</span>
                     </a>
                 </li>
@@ -120,11 +114,41 @@
 @endif
 </nav>
 <!-- / Navbar -->
-<div class="loadingData" id="loadingData" style="display: none;">
-    <div class="spinner-grow text-primary" style="margin-left:50%;margin-top:20% " role="status">
+<div id="loadingData" class="demo-inline-spacing loadingData d-none">
+    <div class="loading-overlay">
+    </div>
+    <div class="spinner-grow spinner-wrapper" role="status">
+        <span class="visually-hidden">Loading...</span>
+    </div>
+    <div class="spinner-grow spinner-wrapper text-primary" role="status">
+        <span class="visually-hidden">Loading...</span>
+    </div>
+    <div class="spinner-grow spinner-wrapper" role="status">
         <span class="visually-hidden">Loading...</span>
     </div>
 </div>
+
+<script>
+    document.getElementById('logout-btn').addEventListener('click', function(event) {
+        event.preventDefault(); // Mencegah submit form langsung
+
+        Swal.fire({
+            title: "Yakin ingin mengakhiri sesi?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#5DC264",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Ya, logout!",
+            cancelButtonText: "Batal",
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Submit form logout jika dikonfirmasi
+                document.getElementById('logout-form').submit();
+            }
+        });
+    });
+</script>
 
 <script>
     function showLoadingProg(show) {

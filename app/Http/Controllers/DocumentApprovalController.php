@@ -37,23 +37,23 @@ class DocumentApprovalController extends Controller
 
         if ($roleId == 'RL002') {
             // Untuk LEMAWA, tampilkan dokumen yang sudah disetujui oleh DEKAN dari semua fakultas
-            $pendingApprovals->where('document_submissions.status_id', '=', 5); // Review LEMAWA
+            $pendingApprovals->where('document_submissions.status_id', '=', 5); // Ditinjau LEMAWA
         } else {
             // Filter berdasarkan fakultas untuk role selain LEMAWA
             $pendingApprovals->where('users.faculty_id', '=', $facultyId);
 
             if ($roleId == 'RL007') {
                 // Untuk BEM, tampilkan dokumen yang diajukan oleh UKM/HIMA dan belum disetujui oleh BEM
-                $pendingApprovals->where('document_submissions.status_id', '=', 1); // Review BEM
+                $pendingApprovals->where('document_submissions.status_id', '=', 1); // Ditinjau BEM
             } elseif ($roleId == 'RL006') {
-                // Untuk DPM, tampilkan dokumen yang sudah disetujui oleh BEM (Review DPM)
-                $pendingApprovals->where('document_submissions.status_id', '=', 2); // Review DPM
+                // Untuk DPM, tampilkan dokumen yang sudah disetujui oleh BEM (Ditinjau DPM)
+                $pendingApprovals->where('document_submissions.status_id', '=', 2); // Ditinjau DPM
             } elseif ($roleId == 'RL005') {
-                // Untuk BINMA, tampilkan dokumen yang sudah disetujui oleh DPM (Review BINMA)
-                $pendingApprovals->where('document_submissions.status_id', '=', 3); // Review BINMA
+                // Untuk BINMA, tampilkan dokumen yang sudah disetujui oleh DPM (Ditinjau BINMA)
+                $pendingApprovals->where('document_submissions.status_id', '=', 3); // Ditinjau BINMA
             } elseif ($roleId == 'RL004') {
-                // Untuk DEKAN, tampilkan dokumen yang sudah disetujui oleh BINMA (Review DEKAN)
-                $pendingApprovals->where('document_submissions.status_id', '=', 4); // Review DEKAN
+                // Untuk DEKAN, tampilkan dokumen yang sudah disetujui oleh BINMA (Ditinjau DEKAN)
+                $pendingApprovals->where('document_submissions.status_id', '=', 4); // Ditinjau DEKAN
             }
         }
 
@@ -88,23 +88,23 @@ class DocumentApprovalController extends Controller
 
         if ($roleId == 'RL002') {
             // Untuk LEMAWA, tampilkan dokumen yang sudah disetujui oleh DEKAN dari semua fakultas
-            $documentQuery->where('document_submissions.status_id', '=', 5); // Review LEMAWA
+            $documentQuery->where('document_submissions.status_id', '=', 5); // Ditinjau LEMAWA
         } else {
             // Filter berdasarkan fakultas untuk role selain LEMAWA
             $documentQuery->where('users.faculty_id', '=', $facultyId);
 
             if ($roleId == 'RL007') {
                 // Untuk BEM, tampilkan dokumen yang diajukan oleh UKM/HIMA dan belum disetujui oleh BEM
-                $documentQuery->where('document_submissions.status_id', '=', 1); // Review BEM
+                $documentQuery->where('document_submissions.status_id', '=', 1); // Ditinjau BEM
             } elseif ($roleId == 'RL006') {
-                // Untuk DPM, tampilkan dokumen yang sudah disetujui oleh BEM (Review DPM)
-                $documentQuery->where('document_submissions.status_id', '=', 2); // Review DPM
+                // Untuk DPM, tampilkan dokumen yang sudah disetujui oleh BEM (Ditinjau DPM)
+                $documentQuery->where('document_submissions.status_id', '=', 2); // Ditinjau DPM
             } elseif ($roleId == 'RL005') {
-                // Untuk BINMA, tampilkan dokumen yang sudah disetujui oleh DPM (Review BINMA)
-                $documentQuery->where('document_submissions.status_id', '=', 3); // Review BINMA
+                // Untuk BINMA, tampilkan dokumen yang sudah disetujui oleh DPM (Ditinjau BINMA)
+                $documentQuery->where('document_submissions.status_id', '=', 3); // Ditinjau BINMA
             } elseif ($roleId == 'RL004') {
-                // Untuk DEKAN, tampilkan dokumen yang sudah disetujui oleh BINMA (Review DEKAN)
-                $documentQuery->where('document_submissions.status_id', '=', 4); // Review DEKAN
+                // Untuk DEKAN, tampilkan dokumen yang sudah disetujui oleh BINMA (Ditinjau DEKAN)
+                $documentQuery->where('document_submissions.status_id', '=', 4); // Ditinjau DEKAN
             }
         }
 
@@ -287,16 +287,16 @@ class DocumentApprovalController extends Controller
     private function getNextStatusId($currentStatusId)
     {
         switch ($currentStatusId) {
-            case 1: // Review BEM
-                return 2; // Review DPM
-            case 2: // Review DPM
-                return 3; // Review Binma
-            case 3: // Review Binma
-                return 4; // Review Dekan
-            case 4: // Review Dekan
-                return 5; // Review Lemawa
-            case 5: // Review Lemawa
-                return 16; // Done
+            case 1: // Ditinjau BEM
+                return 2; // Ditinjau DPM
+            case 2: // Ditinjau DPM
+                return 3; // Ditinjau Binma
+            case 3: // Ditinjau Binma
+                return 4; // Ditinjau Dekan
+            case 4: // Ditinjau Dekan
+                return 5; // Ditinjau Lemawa
+            case 5: // Ditinjau Lemawa
+                return 16; // Selesai
             default:
                 return $currentStatusId; // Jika tidak sesuai, kembalikan status sekarang
         }
@@ -305,16 +305,16 @@ class DocumentApprovalController extends Controller
     private function getReviseStatusId($currentStatusId)
     {
         switch ($currentStatusId) {
-            case 1: // Review BEM
-                return 6; // Revise BEM
-            case 2: // Review DPM
-                return 7; // Revise DPM
-            case 3: // Review Binma
-                return 8; // Revise Binma
-            case 4: // Review Dekan
-                return 9; // Revise Dekan
-            case 5: // Review Lemawa
-                return 10; // Revise Lemawa
+            case 1: // Ditinjau BEM
+                return 6; // Revisi BEM
+            case 2: // Ditinjau DPM
+                return 7; // Revisi DPM
+            case 3: // Ditinjau Binma
+                return 8; // Revisi Binma
+            case 4: // Ditinjau Dekan
+                return 9; // Revisi Dekan
+            case 5: // Ditinjau Lemawa
+                return 10; // Revisi Lemawa
             default:
                 return $currentStatusId; // Jika tidak sesuai, kembalikan status sekarang
         }

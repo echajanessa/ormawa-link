@@ -30,7 +30,7 @@
                         <!-- Session Status -->
                         <x-auth-session-status class="mb-4" :status="session('status')" />
 
-                        <form method="POST" action="{{ route('login') }}">
+                        <form id="loginForm" method="POST" action="{{ route('login') }}">
                             @csrf
 
                             {{-- Email --}}
@@ -64,7 +64,6 @@
                                     @endif
                                 </div>
                             </div>
-
                             <div class="mb-6">
                                 <button class="btn btn-primary d-grid w-100" type="submit">{{ __('Masuk') }}</button>
                             </div>
@@ -75,6 +74,29 @@
         </div>
     </div>
 @endsection
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Pastikan loading disembunyikan saat halaman dimuat
+        showLoadingProg(false);
+
+        // Event listener untuk form submit
+        const form = document.getElementById('loginForm');
+        form.addEventListener('submit', function() {
+            showLoadingProg(true); // Tampilkan loading saat submit
+        });
+    });
+
+    function showLoadingProg(show) {
+        const loadingElement = document.getElementById("loadingData");
+        if (show) {
+            loadingElement.classList.remove("d-none"); // Tampilkan loading
+        } else {
+            loadingElement.classList.add("d-none"); // Sembunyikan loading
+        }
+    }
+</script>
+
 @if (session('error'))
     <script>
         Swal.fire({

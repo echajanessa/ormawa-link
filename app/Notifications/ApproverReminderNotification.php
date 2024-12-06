@@ -11,12 +11,20 @@ class ApproverReminderNotification extends Notification
 {
     use Queueable;
 
+    protected $submission_id;
+    protected $status_description;
+    protected $eventName;
+    protected $organization;
+
     /**
      * Create a new notification instance.
      */
-    public function __construct()
+    public function __construct($submissionId, $status, $eventName, $organization)
     {
-        //
+        $this->submission_id = $submissionId;
+        $this->status_description = $status;
+        $this->eventName = $eventName;
+        $this->organization = $organization;
     }
 
     /**
@@ -35,9 +43,15 @@ class ApproverReminderNotification extends Notification
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-            ->line('Testing email reminder approver.')
-            ->action('Notification Action', url('/'))
-            ->line('Thank you for using our application!');
+            ->subject('Reminder: Persetujuan Dokumen')
+            ->greeting('Halo ' . $notifiable->name)
+            ->line('Ada dokumen baru yang membutuhkan tindakan. Berikut adalah detail dokumen:')
+            ->line('Nomor Dokumen: ' . $this->submission_id)
+            ->line('Nama Kegiatan: ' . $this->eventName)
+            ->line('Penyelenggara: ' . $this->organization)
+            ->line('Status Dokumen: Ditinjau' . $this->status_description)
+            ->action('Lihat Dokumen', url('/login'))
+            ->line('Harap segera ditindaklanjuti. Terima kasih');
     }
 
     /**

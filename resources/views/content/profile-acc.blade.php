@@ -1,3 +1,7 @@
+@php
+    $isNavbar = false;
+@endphp
+
 @extends('layouts/contentNavbarLayout')
 
 @section('title', 'Account settings - Account')
@@ -13,12 +17,68 @@
 </style>
 
 @section('content')
+    <ul class="navbar-nav align-items-end">
+        <!-- User -->
+        <li class="nav-item navbar-dropdown dropdown-user dropdown">
+            <div class="align-items-center row g-0">
+                <div class="col-sm-9 text-end">
+                    <div class="flex-grow-1">
+                        <h6 class="mb-0 me-2">{{ Auth::user()->name }}</h6>
+                    </div>
+                </div>
+                <div class="col-3 col-md-3 justify-content-center d-flex">
+                    <a class="nav-link dropdown-toggle hide-arrow g-0" style="font-size: 1.7rem;" href="javascript:void(0);"
+                        data-bs-toggle="dropdown">
+                        <i class='bx bxs-user-circle text-primary user-icon' style="font-size: 2rem;"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li>
+                            <a class="dropdown-item" href="javascript:void(0);">
+                                <div class="d-flex">
+                                    <div class="flex-grow-1">
+                                        <h6 class="mb-0">{{ Auth::user()->email }}</h6>
+                                        <small class="text-muted">{{ Auth::user()->userRole->role_name }}</small>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <div class="dropdown-divider my-1"></div>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="{{ url('/profile/edit') }}">
+                                <i class="bx bx-user bx-md me-3"></i><span>Profile</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="{{ url('/ubah-sandi') }}">
+                                <i class="bx bx-lock-open-alt bx-md me-3"></i><span>Ubah Kata Sandi</span>
+                            </a>
+                        </li>
+                        <li>
+                            <div class="dropdown-divider my-1"></div>
+                        </li>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            @csrf
+                        </form>
+                        <li>
+                            <a class="dropdown-item" href="#" id="logout-btn">
+                                <i class="bx bx-power-off bx-md me-3"></i><span>Logout</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </li>
+        <!--/ User -->
+    </ul>
+
     <div class="row">
         <div class="col-md-12">
             <div class="nav-align-top">
                 <ul class="nav nav-pills flex-column flex-md-row mb-6">
                     <li class="nav-item"><a class="nav-link active" href="javascript:void(0);"><i
-                                class="bx bx-sm bx-user me-1_5"></i> Profil</a></li>
+                                class="bx bx-sm bx-user me-1_5"></i> Profile</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ url('/ubah-sandi') }}"><i
                                 class="bx bx-sm bx-lock-open-alt me-1_5"></i> Kata Sandi</a></li>
                 </ul>
@@ -73,14 +133,13 @@
                                 <div class="input-group input-group-merge">
                                     <span class="input-group-text">ID (+62)</span>
                                     <input type="text" id="phone_number" name="phone_number" class="form-control"
-                                        placeholder="812 2345 7890" value="{{ old('phone_number', $user->phone_number) }}"
-                                        required />
+                                        placeholder="812 2345 7890"
+                                        value="{{ old('phone_number', $user->phone_number) }}" required />
                                 </div>
                             </div>
                         </div>
                         <div class="mt-6">
-                            <button type="submit" class="btn btn-primary me-3">Save changes</button>
-                            <button type="reset" class="btn btn-outline-secondary">Cancel</button>
+                            <button type="submit" class="btn btn-primary me-3">Simpan Perubahan</button>
                         </div>
                     </div>
                 </div>
@@ -105,3 +164,27 @@
         });
     </script>
 @endif
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('logout-btn').addEventListener('click', function(event) {
+            event.preventDefault(); // Mencegah submit form langsung
+
+            Swal.fire({
+                title: "Yakin ingin mengakhiri sesi?",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#5DC264",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Ya, logout!",
+                cancelButtonText: "Batal",
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Submit form logout jika dikonfirmasi
+                    document.getElementById('logout-form').submit();
+                }
+            });
+        });
+    });
+</script>

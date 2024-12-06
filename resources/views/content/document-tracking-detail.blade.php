@@ -112,9 +112,14 @@
                                                 </a>
                                             @endif
                                         @else
-                                            <a href="#" class="btn btn-primary">
-                                                Download Signed Document
-                                            </a>
+                                            @if ($approver['file_path'])
+                                                <a href="{{ asset('storage/' . $approver['file_path']) }}"
+                                                    class="btn btn-primary" target="_blank">
+                                                    Download Signed Document
+                                                </a>
+                                            @else
+                                                <span class="badge bg-label-secondary">Dokumen belum disetujui</span>
+                                            @endif
                                         @endif
                                     </div>
                                 </div>
@@ -123,18 +128,18 @@
                                         @php
                                             $badgeClass = '';
                                             switch ($document->doc_status) {
-                                                case 'Review BEM':
-                                                case 'Review DPM':
-                                                case 'Review Binma':
-                                                case 'Review Dekan':
-                                                case 'Review Lemawa':
+                                                case 'Ditinjau BEM':
+                                                case 'Ditinjau DPM':
+                                                case 'Ditinjau Binma':
+                                                case 'Ditinjau Dekan':
+                                                case 'Ditinjau Lemawa':
                                                     $badgeClass = 'bg-label-info';
                                                     break;
-                                                case 'Revise BEM':
-                                                case 'Revise DPM':
-                                                case 'Revise Binma':
-                                                case 'Revise Dekan':
-                                                case 'Revise Lemawa':
+                                                case 'Revisi BEM':
+                                                case 'Revisi DPM':
+                                                case 'Revisi Binma':
+                                                case 'Revisi Dekan':
+                                                case 'Revisi Lemawa':
                                                     $badgeClass = 'bg-label-warning';
                                                     break;
                                                 case 'Reject BEM':

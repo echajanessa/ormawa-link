@@ -101,8 +101,8 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save changes</button>
+                        <button type="button" class="btn btn-outline-secondary me-2" data-bs-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
                     </div>
                 </div>
             </div>
@@ -135,7 +135,7 @@
                                     aria-describedby="basic-icon-default-message2" required></textarea>
                             </div>
                         </div>
-                        <div class="row mb-6">
+                        {{-- <div class="row mb-6">
                             <label for="reg_file" class="col-md-2 col-form-label">File Regulasi</label>
                             <div class="col-md-10">
                                 <input class="form-control" type="file" id="announcement_title"
@@ -143,11 +143,12 @@
                                     value="{{ old('announcement_title', $regulation->announcement_title ?? '') }}"
                                     required accept=".pdf" />
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save changes</button>
+                        <button type="button" class="btn btn-outline-secondary me-2"
+                            data-bs-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn btn-primary">Simpan</button>
                     </div>
                 </div>
             </div>
@@ -250,16 +251,17 @@
                 text: "Apakah Anda yakin akan menghapus regulasi ini?",
                 icon: "warning",
                 showCancelButton: true,
-                confirmButtonColor: "#5DC264",
-                cancelButtonColor: "#F47D20",
-                confirmButtonText: "Hapus"
+                confirmButtonColor: "#B31010",
+                confirmButtonText: "Ya, hapus",
+                cancelButtonText: "Batal",
+                reverseButtons: true
             }).then((result) => {
                 if (result.isConfirmed) {
                     // Submit the form if user confirms deletion
                     document.getElementById(`delete-form-${id}`).submit();
                     Swal.fire({
-                        title: "Deleted!",
-                        text: "Your file has been deleted.",
+                        title: "Berhasil",
+                        text: "Regulasi berhasil dihapus",
                         icon: "success"
                     });
                 }

@@ -162,20 +162,20 @@ class DocumentSubmissionController extends Controller
 
             // Cek status berdasarkan role supervisor
             if ($spvRole == 'RL007') {
-                return DocumentStatus::where('status_description', 'Review BEM')->first()->status_id;
+                return DocumentStatus::where('status_description', 'Ditinjau BEM')->first()->status_id;
             } elseif ($spvRole == 'RL006') {
-                return DocumentStatus::where('status_description', 'Review DPM')->first()->status_id;
+                return DocumentStatus::where('status_description', 'Ditinjau DPM')->first()->status_id;
             } elseif ($spvRole == 'RL005') {
-                return DocumentStatus::where('status_description', 'Review BINMA')->first()->status_id;
+                return DocumentStatus::where('status_description', 'Ditinjau BINMA')->first()->status_id;
             } elseif ($spvRole == 'RL004') {
-                return DocumentStatus::where('status_description', 'Review Dekan')->first()->status_id;
+                return DocumentStatus::where('status_description', 'Ditinjau Dekan')->first()->status_id;
             } elseif ($spvRole == 'RL002') {
-                return DocumentStatus::where('status_description', 'Review Lemawa')->first()->status_id;
+                return DocumentStatus::where('status_description', 'Ditinjau Lemawa')->first()->status_id;
             }
         }
 
         // Jika tidak ada supervisor atau role tidak terdefinisi
-        return DocumentStatus::where('status_description', 'Review Lemawa')->first()->status_id;
+        return DocumentStatus::where('status_description', 'Ditinjau Lemawa')->first()->status_id;
     }
 
     public function reUploadLpj(Request $request, $submissionId)
@@ -201,7 +201,7 @@ class DocumentSubmissionController extends Controller
                     'updated_at' => now(),
                 ]);
             }
-            // Update the status to the appropriate review status based on last approver's decision
+            // Update the status to the appropriate Ditinjau status based on last approver's decision
             $submission->update([
                 'status_id' => $this->getReviseStatusId($submission->status_id),
                 'updated_at' => now(),
@@ -237,7 +237,7 @@ class DocumentSubmissionController extends Controller
                     'updated_at' => now(),
                 ]);
             }
-            // Update the status to the appropriate review status based on last approver's decision
+            // Update the status to the appropriate Ditinjau status based on last approver's decision
             $submission->update([
                 'status_id' => $this->getReviseStatusId($submission->status_id),
                 'updated_at' => now(),
@@ -253,16 +253,16 @@ class DocumentSubmissionController extends Controller
     private function getReviseStatusId($currentStatusId)
     {
         switch ($currentStatusId) {
-            case 6: // Revise BEM
-                return 1; // Review BEM
-            case 7: // Revise DPM
-                return 2; // Review DPM
-            case 8: // Revise Binma
-                return 3; // Review Binma
-            case 9: // Revise Dekan
-                return 4; // Review Dekan
-            case 10: // Revise Lemawa
-                return 5; // Review Lemawa
+            case 6: // Revisi BEM
+                return 1; // Ditinjau BEM
+            case 7: // Revisi DPM
+                return 2; // Ditinjau DPM
+            case 8: // Revisi Binma
+                return 3; // Ditinjau Binma
+            case 9: // Revisi Dekan
+                return 4; // Ditinjau Dekan
+            case 10: // Revisi Lemawa
+                return 5; // Ditinjau Lemawa
             default:
                 return $currentStatusId; // Return the current status if not matched
         }

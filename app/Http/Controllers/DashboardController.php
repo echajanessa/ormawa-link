@@ -8,16 +8,23 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
 
-    public function showLpjReminder()
+    public function showLpjReminder(Request $request)
     {
 
         $userId = Auth::id();
         $user = User::findOrFail($userId);
         $userRole = Auth::user()->role_id;
+
+        // untuk filtering card
+        $currentYear = Carbon::now()->year;
+        $startYear = $request->input('year', $currentYear); // pilih tahun lewat dropdown 
+        $startDate = Carbon::create($startYear, 8, 1); // 1 Agustus
+        $endDate = Carbon::create($startYear + 1, 7, 31); // 31 Juli tahun berikutnya
 
         $totalDocuments = 0;
         $proposalCount = 0;
@@ -27,11 +34,15 @@ class DashboardController extends Controller
 
         if (in_array($userRole, ['RL009', 'RL008', 'RL007', 'RL006'])) {
             // Hitung jumlah dokumen berdasarkan jenis
-            $totalDocuments = DocumentSubmission::where('user_id', $userId)->count();
-            $proposalCount = DocumentSubmission::where('user_id', $userId)->where('doc_type_id', 'DT01')->count();
-            $lpjCount = DocumentSubmission::where('user_id', $userId)->where('doc_type_id', 'DT05')->count();
+            $totalDocuments = DocumentSubmission::where('user_id', $userId)
+                ->whereBetween('created_at', [$startDate, $endDate])->count();
+            $proposalCount = DocumentSubmission::where('user_id', $userId)->where('doc_type_id', 'DT01')
+                ->whereBetween('created_at', [$startDate, $endDate])->count();
+            $lpjCount = DocumentSubmission::where('user_id', $userId)->where('doc_type_id', 'DT05')
+                ->whereBetween('created_at', [$startDate, $endDate])->count();
             $sikCount = DocumentSubmission::where('user_id', $userId)->where('doc_type_id', 'DT02')->count();
-            $activeDocuments = DocumentSubmission::where('user_id', $userId)->where('status_id', '!=', '16')->count();
+            $activeDocuments = DocumentSubmission::where('user_id', $userId)->where('status_id', '!=', '16')
+                ->whereBetween('created_at', [$startDate, $endDate])->count();
         } else {
             $totalDocuments = DocumentSubmission::with(['documentType'])
                 ->leftJoin('document_approvals', function ($join) use ($userId) {
@@ -51,6 +62,7 @@ class DashboardController extends Controller
                     'document_status.status_description as doc_status',
                     'document_submissions.status_id'
                 )
+                ->whereBetween('document_submissions.created_at', [$startDate, $endDate])
                 ->count();
 
             $proposalCount = DocumentSubmission::with(['documentType'])
@@ -62,7 +74,7 @@ class DashboardController extends Controller
                     $query->where('document_submissions.user_id', $userId)
                         ->orWhereNotNull('document_approvals.approval_id');
                 })->where('doc_type_id', 'DT01')
-                ->count();
+                ->whereBetween('document_submissions.created_at', [$startDate, $endDate])->count();
 
             $lpjCount = DocumentSubmission::with(['documentType'])
                 ->leftJoin('document_approvals', function ($join) use ($userId) {
@@ -73,7 +85,7 @@ class DashboardController extends Controller
                     $query->where('document_submissions.user_id', $userId)
                         ->orWhereNotNull('document_approvals.approval_id');
                 })->where('doc_type_id', 'DT05')
-                ->count();
+                ->whereBetween('document_submissions.created_at', [$startDate, $endDate])->count();
 
             $activeDocuments = DocumentSubmission::with(['documentType'])
                 ->leftJoin('document_approvals', function ($join) use ($userId) {
@@ -85,7 +97,7 @@ class DashboardController extends Controller
                         ->orWhereNotNull('document_approvals.approval_id');
                 })
                 ->where('document_submissions.status_id', '!=', '16')
-                ->count();
+                ->whereBetween('document_submissions.created_at', [$startDate, $endDate])->count();
         }
 
 
@@ -108,6 +120,23 @@ class DashboardController extends Controller
         $daysSinceEnd = floor($endDate->diffInDays(Carbon::now(), false));
         $daysRemaining = max(0, 30 - $daysSinceEnd); // 30 hari setelah end_date
 
-        return view('content.dashboard.dashboards-analytics', compact('daysSinceEnd', 'daysRemaining', 'user', 'userRole', 'activeDocuments', 'lastProposal', 'regulations', 'totalDocuments', 'proposalCount', 'lpjCount', 'sikCount'));
+        //Modal Reminder Approval
+        $approverRole = DB::table('users')
+            ->join('user_roles', 'users.role_id', '=', 'user_roles.role_id')
+            ->where('users.id', $userId)
+            ->value('role_name'); // Misalnya: "BEM", "DPM", dll.
+
+        // Ambil dokumen yang harus disetujui oleh pengguna berdasarkan role mereka
+        $approvalReminder = DB::table('document_submissions')
+            ->join('document_status', 'document_submissions.status_id', '=', 'document_status.status_id')
+            ->where('document_status.status_description', 'LIKE', "Ditinjau $approverRole") // Sesuaikan dengan role user
+            ->get();
+
+        // Simpan ke session untuk digunakan di tampilan
+        session(['approval_reminder' => $approvalReminder]);
+
+        // dd(session()->all()); // Tambahkan ini untuk memastikan data benar-benar ada
+
+        return view('content.dashboard.dashboards-analytics', compact('approvalReminder', 'daysSinceEnd', 'daysRemaining', 'user', 'userRole', 'activeDocuments', 'lastProposal', 'regulations', 'totalDocuments', 'proposalCount', 'lpjCount', 'sikCount'));
     }
 }

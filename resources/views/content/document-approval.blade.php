@@ -1,6 +1,19 @@
 @extends('layouts/contentNavbarLayout')
 
 @section('title', 'Persetujuan Dokumen')
+<div id="loadingData" class="demo-inline-spacing loadingData d-none">
+    <div class="loading-overlay">
+    </div>
+    <div class="spinner-grow spinner-wrapper" role="status">
+        <span class="visually-hidden">Loading...</span>
+    </div>
+    <div class="spinner-grow spinner-wrapper text-primary" role="status">
+        <span class="visually-hidden">Loading...</span>
+    </div>
+    <div class="spinner-grow spinner-wrapper" role="status">
+        <span class="visually-hidden">Loading...</span>
+    </div>
+</div>
 
 @section('content')
     <!-- Hoverable Table rows -->
@@ -53,7 +66,7 @@
                             </td>
                             <td class="text-center">
                                 <a href="{{ route('document-approval.show', $document->submission_id) }}"
-                                    class="btn btn-xs btn-primary">
+                                    class="btn btn-xs btn-primary" onclick="showLoadingProg(true);">
                                     Detail
                                 </a>
                             </td>
@@ -119,3 +132,26 @@
     <!--/ Hoverable Table rows -->
     <hr class="my-12">
 @endsection
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Fungsi untuk menangani tombol Detail
+        window.showDetail = function(event, url) {
+            event.preventDefault(); // Mencegah navigasi langsung
+            showLoadingProg(true); // Tampilkan loading
+            setTimeout(function() {
+                // Beri sedikit jeda agar loading terlihat sebelum navigasi
+                window.location.href = url; // Navigasi ke URL
+            }, 100);
+        };
+
+        // Fungsi untuk menampilkan atau menyembunyikan loading
+        function showLoadingProg(show) {
+            const loadingElement = document.getElementById("loadingData");
+            if (show) {
+                loadingElement.classList.remove("d-none"); // Tampilkan loading
+            } else {
+                loadingElement.classList.add("d-none"); // Sembunyikan loading
+            }
+        }
+    });
+</script>

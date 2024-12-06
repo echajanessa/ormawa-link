@@ -104,14 +104,23 @@ class DocumentTrackingController extends Controller
                 $supervisor = DB::table('users')
                     ->leftJoin('supervisors', 'users.id', '=', 'supervisors.user_id')
                     ->where('users.id', $currentUserId)
-                    ->select('users.name', 'users.email', 'supervisors.spv_id')
+                    ->select('users.id as approver_id', 'users.name', 'users.email', 'supervisors.spv_id')
                     ->first();
 
                 if ($supervisor) {
+                    // Cek dokumen yang telah di-upload oleh approver terkait
+                    $file = DB::table('document_files')
+                        ->where('submission_id', $id)
+                        ->where('uploaded_by', $supervisor->approver_id)
+                        ->select('file_path', 'document_desc')
+                        ->first();
+
                     $approvers[] = [
                         'name' => $supervisor->name,
                         'email' => $supervisor->email,
                         'status' => $document ? $document->doc_status : 'N/A',
+                        'file_path' => $file ? $file->file_path : null, // Dokumen yang ditandatangani
+                        'document_desc' => $file ? $file->document_desc : null,
                     ];
                     $currentUserId = $supervisor->spv_id; //rekursif buat spv selanjutnya
                 } else {
