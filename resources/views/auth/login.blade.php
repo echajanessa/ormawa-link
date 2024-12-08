@@ -3,7 +3,7 @@
 @section('title', 'Login')
 
 @section('page-style')
-    @vite(['resources/assets/vendor/scss/pages/page-auth.scss'])
+@vite(['resources/assets/vendor/scss/pages/page-auth.scss'])
 @endsection
 
 @section('content')
