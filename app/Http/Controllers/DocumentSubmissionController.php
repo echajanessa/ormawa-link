@@ -201,6 +201,19 @@ class DocumentSubmissionController extends Controller
                     'updated_at' => now(),
                 ]);
             }
+	    if ($request->hasFile('letter_document')) {
+                $proposalLpjFilePath = $request->file('letter_document')->store('document/letters', 'public');
+                DocumentFile::create([
+                    'submission_id' => $submissionId,
+                    'approval_id' => null,
+                    'document_type' => $submission->doc_type_id,
+                    'uploaded_by' => $userId,
+                    'file_path' => $proposalLpjFilePath,
+                    'document_desc' => 'Revisi Dokumen',
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ]);
+            }
             // Update the status to the appropriate Ditinjau status based on last approver's decision
             $submission->update([
                 'status_id' => $this->getReviseStatusId($submission->status_id),
@@ -226,6 +239,19 @@ class DocumentSubmissionController extends Controller
         try {
             if ($request->hasFile('proposal_document')) {
                 $proposalLpjFilePath = $request->file('proposal_document')->store('document/revisions', 'public');
+                DocumentFile::create([
+                    'submission_id' => $submissionId,
+                    'approval_id' => null,
+                    'document_type' => $submission->doc_type_id,
+                    'uploaded_by' => $userId,
+                    'file_path' => $proposalLpjFilePath,
+                    'document_desc' => 'Revisi Dokumen',
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ]);
+            }
+	    if ($request->hasFile('letter_document')) {
+                $proposalLpjFilePath = $request->file('letter_document')->store('documents/letters', 'public');
                 DocumentFile::create([
                     'submission_id' => $submissionId,
                     'approval_id' => null,

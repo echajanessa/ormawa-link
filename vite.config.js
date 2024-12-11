@@ -7,7 +7,7 @@ export default defineConfig({
       input: [
         'resources/js/app.js',   // Main JavaScript file
         'resources/css/app.css',  // Main CSS file
-	'resources/assets/vendor/scss/pages/page-auth.scss',
+	'resources/assets/vendor/scss/pages/page-auth.scss',	
 	'resources/assets/vendor/fonts/boxicons.scss',
 	'resources/assets/vendor/scss/core.scss',
 	'resources/assets/vendor/scss/theme-default.scss',

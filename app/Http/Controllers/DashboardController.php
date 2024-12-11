@@ -35,14 +35,14 @@ class DashboardController extends Controller
         if (in_array($userRole, ['RL009', 'RL008', 'RL007', 'RL006'])) {
             // Hitung jumlah dokumen berdasarkan jenis
             $totalDocuments = DocumentSubmission::where('user_id', $userId)
-                ->whereBetween('created_at', [$startDate, $endDate])->count();
+                ->whereBetween('start_date', [$startDate, $endDate])->count();
             $proposalCount = DocumentSubmission::where('user_id', $userId)->where('doc_type_id', 'DT01')
-                ->whereBetween('created_at', [$startDate, $endDate])->count();
+                ->whereBetween('start_date', [$startDate, $endDate])->count();
             $lpjCount = DocumentSubmission::where('user_id', $userId)->where('doc_type_id', 'DT05')
-                ->whereBetween('created_at', [$startDate, $endDate])->count();
+                ->whereBetween('start_date', [$startDate, $endDate])->count();
             $sikCount = DocumentSubmission::where('user_id', $userId)->where('doc_type_id', 'DT02')->count();
             $activeDocuments = DocumentSubmission::where('user_id', $userId)->where('status_id', '!=', '16')
-                ->whereBetween('created_at', [$startDate, $endDate])->count();
+                ->whereBetween('start_date', [$startDate, $endDate])->count();
         } else {
             $totalDocuments = DocumentSubmission::with(['documentType'])
                 ->leftJoin('document_approvals', function ($join) use ($userId) {
@@ -62,7 +62,7 @@ class DashboardController extends Controller
                     'document_status.status_description as doc_status',
                     'document_submissions.status_id'
                 )
-                ->whereBetween('document_submissions.created_at', [$startDate, $endDate])
+                ->whereBetween('document_submissions.start_date', [$startDate, $endDate])
                 ->count();
 
             $proposalCount = DocumentSubmission::with(['documentType'])
@@ -74,7 +74,7 @@ class DashboardController extends Controller
                     $query->where('document_submissions.user_id', $userId)
                         ->orWhereNotNull('document_approvals.approval_id');
                 })->where('doc_type_id', 'DT01')
-                ->whereBetween('document_submissions.created_at', [$startDate, $endDate])->count();
+                ->whereBetween('document_submissions.start_date', [$startDate, $endDate])->count();
 
             $lpjCount = DocumentSubmission::with(['documentType'])
                 ->leftJoin('document_approvals', function ($join) use ($userId) {
@@ -85,7 +85,7 @@ class DashboardController extends Controller
                     $query->where('document_submissions.user_id', $userId)
                         ->orWhereNotNull('document_approvals.approval_id');
                 })->where('doc_type_id', 'DT05')
-                ->whereBetween('document_submissions.created_at', [$startDate, $endDate])->count();
+                ->whereBetween('document_submissions.start_date', [$startDate, $endDate])->count();
 
             $activeDocuments = DocumentSubmission::with(['documentType'])
                 ->leftJoin('document_approvals', function ($join) use ($userId) {
@@ -97,7 +97,7 @@ class DashboardController extends Controller
                         ->orWhereNotNull('document_approvals.approval_id');
                 })
                 ->where('document_submissions.status_id', '!=', '16')
-                ->whereBetween('document_submissions.created_at', [$startDate, $endDate])->count();
+                ->whereBetween('document_submissions.start_date', [$startDate, $endDate])->count();
         }
 
 

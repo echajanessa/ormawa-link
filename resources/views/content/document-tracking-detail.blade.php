@@ -97,18 +97,18 @@
                                             {{ $approver['email'] ?? 'Email tidak tersedia' }} <!-- Email Approver -->
                                         </p>
 
-                                        @if (in_array($document->status_id, ['6', '7', '8', '9', '10']))
+                                        @if ($approver['is_rejected'])
                                             @if ($document->doc_type_id == 'DT01')
                                                 {{-- Proposal Kegiatan --}}
                                                 <a data-toggle="modal" class="btn btn-warning"
                                                     href="{{ route('submission-proposal.edit', $document->submission_id) }}">
-                                                    Re-upload Document
+                                                    Upload ulang Proposal Kegiatan
                                                 </a>
                                             @elseif ($document->doc_type_id == 'DT05')
                                                 {{-- Laporan Pertanggungjawaban --}}
                                                 <a data-toggle="modal" class="btn btn-warning"
                                                     href="{{ route('submission-lpj.edit', $document->submission_id) }}">
-                                                    Re-upload Document
+                                                    Upload ulang LPJ
                                                 </a>
                                             @endif
                                         @else

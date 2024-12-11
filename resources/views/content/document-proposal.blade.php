@@ -83,7 +83,7 @@
                 </div>
                 <form id="submission-form"
                     action="{{ $mode === 'new' ? route('submission-proposal.store') : route('submission-proposal.revise', $submission->submission_id) }}"
-                    onsubmit="return handleFormSubmit(event)" method="POST" enctype="multipart/form-data">
+                    method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="card-body">
                         <div class="row mb-6">

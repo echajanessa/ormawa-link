@@ -79,7 +79,7 @@
                 </div>
                 <form
                     action="{{ $mode === 'new' ? route('submission-proposal.store') : route('submission-lpj.revise', $submission->submission_id) }}"
-                    onsubmit="return handleFormSubmit(event)" method="POST" enctype="multipart/form-data">
+                    method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="card-body">
                         <form>
@@ -142,9 +142,9 @@
                                 </div>
                             </div>
                             <div class="row mb-6">
-                                <label class="col-sm-2 col-form-label" for="proposal_document">Dokumen Proposal</label>
+                                <label class="col-sm-2 col-form-label" for="proposalLpj_document">Dokumen</label>
                                 <div class="col-sm-10">
-                                    <input type="file" name="proposal_document" id="proposal_document"
+                                    <input type="file" name="proposalLpj_document" id="proposalLpj_document"
                                         class="form-control phone-mask" {{ $mode === 'revision' ? '' : 'required' }}
                                         required />
                                 </div>
